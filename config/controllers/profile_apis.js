@@ -10,7 +10,8 @@ exports.profile_info = (req,res)=>{
 
 exports.blogHistory = (req,res)=>{
     const token = req.user.id
-    db.query('select * from blogs where id = ?',[token],(err,history)=>{
+    console.log(token)
+    db.query('select id ,bloger_id,cloudinary_url,blog_title,created_at from blogs where bloger_id = ?',[token],(err,history)=>{
         if(err){
             console.log(err)
             res.status(500).json({error:"error getting history"})
@@ -28,7 +29,20 @@ exports.singleProfile = (req,res)=>{
             console.log(err)
             res.status(500).json({error:"error while getting singleprofile"})
         }else{
-            res.status(200).json(singleprofile)
+            res.status(200).json(singleprofile[0])
+        }
+    })
+}
+
+exports.otherHistory = (req,res)=>{
+    const userHistoryId = req.params.userHistoryId
+    
+    db.query('select id ,bloger_id,cloudinary_url,blog_title,created_at from blogs where bloger_id = ?',[userHistoryId],(err,history)=>{
+        if(err){
+            console.log(err)
+            res.status(500).json({error:"error getting history"})
+        }else{
+            res.status(200).json(history)
         }
     })
 }

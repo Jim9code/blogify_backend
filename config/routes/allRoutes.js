@@ -12,6 +12,7 @@ const blogHistory = require('../controllers/profile_apis')
 const blogs = require('../controllers/blogs_apis')
 const singleBlog = require('../controllers/blogs_apis')
 const singleProfile = require('../controllers/profile_apis')
+const otherHistory = require('../controllers/profile_apis')
 
 
 router.get('/auth/google',passport.authenticate('google',{scope:['email', 'profile']}));
@@ -27,11 +28,12 @@ router.get('/logout',isLoggedIn,logout.logout);
 router.get('/protected',isLoggedIn,login.login)
 router.post('/addblog',isLoggedIn,upload.single('image'),postImage.postImage)
 router.post('/delete/:imgId',isLoggedIn,deleteImg.deleteImg )
-router.get('/profileInfo',isLoggedIn,profile_info.profile_info)
-router.get('/blogHistory',isLoggedIn,blogHistory.blogHistory)
-router.get('/blogs',isLoggedIn,blogs.blogs)
-router.get('/blogs/:blogId',isLoggedIn,singleBlog.singleBlog)
-router.get('/profileInfo/:userId',isLoggedIn,singleProfile.singleProfile)
+router.get('/profileinfo',isLoggedIn,profile_info.profile_info)
+router.get('/bloghistory',isLoggedIn,blogHistory.blogHistory)
+router.get('/blogs',blogs.blogs)
+router.get('/:blogId',singleBlog.singleBlog)
+router.get('/profile/:userId',isLoggedIn,singleProfile.singleProfile)
+router.get('/otherhistory/:userHistoryId',otherHistory.otherHistory)
 
 
 
