@@ -9,6 +9,8 @@ const path = require('path')
 exports.postImage =  async (req,res)=>{
     try {
       const token = req.user.id
+      const {username , profile_picture} = req.user
+
       const {blogTitle,blogContent} = req.body
       const file = req.file
 
@@ -23,10 +25,10 @@ exports.postImage =  async (req,res)=>{
               
       // Save image data to MySQL database
     const sql = `
-      INSERT INTO images (bloger_id, cloudinary_url, blog_title, blog_content, public_id)
-      VALUES (?, ?, ?, ?,?)
+      INSERT INTO blogs (bloger_id, cloudinary_url, blog_title, blog_content, public_id, bloger_pic , bloger_username)
+      VALUES (?, ?, ?, ?,?,?,?)
     `;
-    const params = [token, result.secure_url, blogTitle, blogContent, result.public_id];
+    const params = [token, result.secure_url, blogTitle, blogContent, result.public_id ,profile_picture ,username];
     db.query(sql, params, (err, results) => {
       if (err) {
         console.error('MySQL error:', err);
