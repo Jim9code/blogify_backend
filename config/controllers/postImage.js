@@ -34,7 +34,7 @@ exports.postImage =  async (req,res)=>{
         console.error('MySQL error:', err);
         return res.status(500).json({ error: 'Failed to save image data to the database' });
       }else{
-        res.status(200).json({success:"Image processing was successful!"})
+        res.status(200).json({success:"Blog processing was successful!"})
       }
     });
 

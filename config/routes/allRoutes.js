@@ -27,7 +27,7 @@ router.get('/google/callback',passport.authenticate('google',{  failureRedirect:
 router.get('/logout',isLoggedIn,logout.logout);
 router.get('/protected',isLoggedIn,login.login)
 router.post('/addblog',isLoggedIn,upload.single('image'),postImage.postImage)
-router.post('/delete/:imgId',isLoggedIn,deleteImg.deleteImg )
+router.post('/delete/:blogId',isLoggedIn,deleteImg.deleteImg )
 router.get('/profileinfo',isLoggedIn,profile_info.profile_info)
 router.get('/bloghistory',isLoggedIn,blogHistory.blogHistory)
 router.get('/blogs',blogs.blogs)
