@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const dotenv = require('dotenv').config()
 const upload = require('../controllers/multer')
 const postImage = require('../controllers/postImage')
 const deleteImg = require('../controllers/deleteImg')
@@ -13,13 +14,16 @@ const blogs = require('../controllers/blogs_apis')
 const singleBlog = require('../controllers/blogs_apis')
 const singleProfile = require('../controllers/profile_apis')
 const otherHistory = require('../controllers/profile_apis')
+const search = require('../controllers/search')
+const edit = require('../controllers/edit')
+const updateEdit = require('../controllers/edit')
 
 
 router.get('/auth/google',passport.authenticate('google',{scope:['email', 'profile']}));
 router.get('/google/callback',passport.authenticate('google',{  failureRedirect:'/'}),
 (req, res) => {
     // Redirect to Svelte frontend
-    res.redirect('http://localhost:5173/'); // Adjust the redirect as needed
+    res.redirect(process.env.FRONTEND_URL); // Adjust the redirect as needed
   });
 
 
@@ -33,7 +37,9 @@ router.get('/bloghistory',isLoggedIn,blogHistory.blogHistory)
 router.get('/blogs',blogs.blogs)
 router.get('/:blogId',singleBlog.singleBlog)
 router.get('/profile/:userId',isLoggedIn,singleProfile.singleProfile)
-router.get('/otherhistory/:userHistoryId',otherHistory.otherHistory)
+router.post('/search',search.search)
+router.get('/profile/blog/:editId',edit.edit)
+router.post('/updateEdit',isLoggedIn,updateEdit.updateEdit)
 
 
 

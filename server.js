@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+const port = process.env.PORT || 5000
+
 const dotenv = require('dotenv').config()
 const mysql = require('mysql2')
 const cloudinary = require('cloudinary').v2
@@ -11,6 +13,11 @@ const passport = require('passport')
 const session = require('express-session')
 const isLoggedIn = require('./config/routes/logintStatus')
 const cookieParser = require('cookie-parser')
+
+
+
+
+
 
 
 
@@ -30,12 +37,12 @@ const path = require('path')
 require('./config/routes/auth')
 
 app.use(session({
-    secret:"cat",
+    secret: process.env.SESSION_SECRET,
     resave:false,
     saveUninitialized:false,
     cookie:{
         secure:false,
-        maxAge:1000*60*60*60*60,
+        maxAge:1000*60*60*24*7,
     },
 }))
 app.use(passport.initialize())
@@ -65,7 +72,8 @@ app.use('/',routes)
 
 
 
-const port = process.env.PORT || 5000
+
+
 app.listen(port,()=>{
     console.log(`server running on port ${port}`)
 })

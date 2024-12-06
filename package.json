@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "pro":"node server.js"
+    "pro": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -12,14 +12,17 @@
   "description": "",
   "dependencies": {
     "cloudinary": "^2.5.1",
+    "connect-redis": "^8.0.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-session": "^1.18.1",
+    "ioredis": "^5.4.1",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.11.4",
     "passport": "^0.7.0",
-    "passport-google-oauth2": "^0.2.0"
+    "passport-google-oauth2": "^0.2.0",
+    "redis": "^4.7.0"
   }
 }
