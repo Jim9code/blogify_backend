@@ -1,5 +1,5 @@
 function isLoggedIn(req, res, next) {
-  req.user ? next() : res.json({authenticated:false});
+  req.user ? next() : res.json({authenticated:true});
 }
 
 module.exports = isLoggedIn;
