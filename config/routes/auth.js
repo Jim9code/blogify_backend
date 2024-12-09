@@ -10,11 +10,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-<<<<<<< HEAD
       callbackURL: `${process.env.BACKEND_URL}/google/callback`,
-=======
-      callbackURL: "https://codeblog-qre4.onrender.com/google/callback",
->>>>>>> 1e5914016d02be752fb753efae99db2261910c67
+      callbackURL: `${process.env.BACKEND_URL}/google/callback`,
       passReqToCallback: true,
     },
     async function (request, accessToken, refreshToken, profile, done) {
