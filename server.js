@@ -13,6 +13,19 @@ const passport = require('passport')
 const session = require('express-session')
 const isLoggedIn = require('./config/routes/logintStatus')
 const cookieParser = require('cookie-parser')
+const mySqlStore = require('express-mysql-session')(session)
+
+const sessionStoreOption = {
+    host: process.env.HOST,
+    port:3306,
+    user:process.env.USER,
+    password:process.env.PASSWORD,
+    database:process.env.DATABASE
+
+}
+// session store
+const sessionStore = new mySqlStore(sessionStoreOption)
+
 
 
 
@@ -37,6 +50,7 @@ const path = require('path')
 require('./config/routes/auth')
 
 app.use(session({
+    store:sessionStore,
     secret: process.env.SESSION_SECRET,
     resave:false,
     saveUninitialized:false,
@@ -66,6 +80,7 @@ app.use(passport.session())
 
 
 const routes = require('./config/routes/allRoutes')
+const { hostname } = require('os')
 app.use('/',routes)
 
 
