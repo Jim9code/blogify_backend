@@ -49,6 +49,8 @@ const path = require('path')
 // session
 require('./config/routes/auth')
 
+console.log(process.env.NODE_ENV)
+
 app.use(session({
     store:sessionStore,
     secret: process.env.SESSION_SECRET,
