@@ -18,7 +18,9 @@ exports.postImage =  async (req,res)=>{
                 folder: 'blogs',
                width: 500, // Resize width
                 height: 500, // Resize height
-                crop: 'fit', // Resize mode
+                transformation: [
+                  { quality: 'auto' } // Optionally use 'auto' for automatic quality adjustment based on the viewer's device and network speed
+                ]
               });
                   
               
