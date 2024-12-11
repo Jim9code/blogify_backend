@@ -1,7 +1,7 @@
 const db = require('../controllers/db')
 
 exports.blogs = (req,res)=>{
-    db.query('select id,bloger_id,cloudinary_url,blog_title,bloger_username,created_at from blogs order by id desc',(err,allBlogs)=>{
+    db.query('select id,bloger_id,cloudinary_url,blog_title,bloger_username,bloger_pic,created_at from blogs order by id desc',(err,allBlogs)=>{
         if(err){
             console.log(err)
             res.status(500).json({error:"error while getting blogs"})
