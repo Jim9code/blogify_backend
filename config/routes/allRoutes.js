@@ -17,6 +17,8 @@ const otherHistory = require('../controllers/profile_apis')
 const search = require('../controllers/search')
 const edit = require('../controllers/edit')
 const updateEdit = require('../controllers/edit')
+const comments = require('../controllers/interaction_apis')
+const getcomments = require('../controllers/interaction_apis')
 
 
 router.get('/auth/google',passport.authenticate('google',{scope:['email', 'profile']}));
@@ -40,6 +42,9 @@ router.get('/profile/:userId',isLoggedIn,singleProfile.singleProfile)
 router.post('/search',search.search)
 router.get('/profile/blog/:editId',edit.edit)
 router.post('/updateEdit',isLoggedIn,updateEdit.updateEdit)
+router.post('/newcomment',isLoggedIn,comments.addcomments)
+router.get('/getcomments/:blogcommentId',getcomments.getcomments)
+
 
 
 
