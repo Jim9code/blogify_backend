@@ -11,38 +11,65 @@ exports.profile_info = (req,res)=>{
 exports.blogHistory = (req,res)=>{
     const token = req.user.id
     console.log(token)
-    db.query('select id ,bloger_id,cloudinary_url,blog_title,created_at from blogs where bloger_id = ? order by id desc',[token],(err,history)=>{
+    db.getConnection((err,connection)=>{
         if(err){
+            console.log(err)
+            res.status(500).json({error:'db connection err'})
+        }else{
+        connection.query('select id ,bloger_id,cloudinary_url,blog_title,created_at from blogs where bloger_id = ? order by id desc',[token],(err,history)=>{
+           connection.release();
+                if(err){
             console.log(err)
             res.status(500).json({error:"error getting history"})
         }else{
             res.status(200).json(history)
         }
     })
+        }
+    })
+   
 }
 
 exports.singleProfile = (req,res)=>{
     const userId = req.params.userId
 
-    db.query('select id ,username , profile_picture from  users where id = ?',[userId],(err,singleprofile)=>{
+    db.getConnection((err,connection)=>{
         if(err){
+            console.log(err)
+            res.status(500).json({error:'db connection err'})
+        }else{
+            connection.query('select id ,username , profile_picture from  users where id = ?',[userId],(err,singleprofile)=>{
+               connection.release();
+                if(err){
             console.log(err)
             res.status(500).json({error:"error while getting singleprofile"})
         }else{
             res.status(200).json(singleprofile[0])
         }
     })
+        }
+    })
+    
 }
 
 exports.otherHistory = (req,res)=>{
     const userHistoryId = req.params.userHistoryId
     
-    db.query('select id ,bloger_id,cloudinary_url,blog_title,created_at from blogs where bloger_id = ? order by id desc',[userHistoryId],(err,history)=>{
+    db.getConnection((err,connection)=>{
         if(err){
+            console.log(err)
+            res.status(500).json({error:'db connection err'})
+        }else{
+            connection.query('select id ,bloger_id,cloudinary_url,blog_title,created_at from blogs where bloger_id = ? order by id desc',[userHistoryId],(err,history)=>{
+              connection.release();
+                if(err){
             console.log(err)
             res.status(500).json({error:"error getting history"})
         }else{
             res.status(200).json(history)
         }
     })
+        }
+    })
+    
 }

@@ -7,8 +7,14 @@ exports.addcomments = (req,res)=>{
     const commenterPic =  req.user.profile_picture
     const commenterUsername = req.user.username
 
-    db.query('insert into comments (blog_id , commenter_id , commenter_username , commenter_pic , comments ) values(?,?,?,?,?) ',
+    db.getConnection((err,connection)=>{
+        if(err){
+            console.log(err)
+            res.status(500).json({error:'db connection err'})
+        }else{
+             connection.query('insert into comments (blog_id , commenter_id , commenter_username , commenter_pic , comments ) values(?,?,?,?,?) ',
         [blogcommentId , commenterId , commenterUsername , commenterPic , commentText],(err)=>{
+            connection.release();
             if(err){
                 console.log(err)
                 res.status(500).json({error:"error during comment!"})
@@ -17,18 +23,33 @@ exports.addcomments = (req,res)=>{
             }
         }
     )
+        }
+
+    })
+   
 }
+
+
 
 // get new comment
 exports.getcomments = (req,res)=>{
     const blogcommentId = req.params.blogcommentId
 
-    db.query('select * from comments where blog_id = ? order by id desc',[blogcommentId],(err,comments)=>{
+    db.getConnection((err,connection)=>{
         if(err){
+            console.log(err)
+            res.status(500).json({error:'db connection err'})
+        }else{
+        connection.query('select * from comments where blog_id = ? order by id desc',[blogcommentId],(err,comments)=>{
+         connection.release()
+            if(err){
             console.log(err)
             res.status(500).json({error:"error during getting comment!"})
         }else{
             res.status(200).json(comments)
         }
     })
+        }
+    })
+
 }
