@@ -19,6 +19,7 @@ const edit = require('../controllers/edit')
 const updateEdit = require('../controllers/edit')
 const comments = require('../controllers/interaction_apis')
 const getcomments = require('../controllers/interaction_apis')
+const { likeController, viewController } = require('../controllers/blogController')
 
 
 router.get('/auth/google',passport.authenticate('google',{scope:['email', 'profile']}));
@@ -44,6 +45,8 @@ router.get('/profile/blog/:editId',edit.edit)
 router.post('/updateEdit',isLoggedIn,updateEdit.updateEdit)
 router.post('/newcomment',isLoggedIn,comments.addcomments)
 router.get('/getcomments/:blogcommentId',getcomments.getcomments)
+router.post('/like/:blogId', likeController)
+router.post('/view/:blogId', viewController)
 
 
 
